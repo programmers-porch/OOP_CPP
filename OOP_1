@@ -1,0 +1,61 @@
+/*Implement a class Complex which represents the Complex Number data type. Implement the
+following
+1. Constructor (including a default constructor which creates the complex number 0+0i).
+2. Overload operator+ to add two complex numbers.
+3. Overload operator* to multiply two complex numbers.
+4. Overload operators << and >> to print and read Complex Numbers*/
+#include <iostream>
+using namespace std;
+class Complex{
+private:
+double real, img;
+public:
+Complex(){
+  real = 0;
+  img = 0;
+}
+Complex(double r, double s){
+  real = r;
+  img = s;
+}
+
+Complex operator+(const Complex& other) const {
+  return Complex(this->real + other.real, this->img + other.img);
+}
+
+Complex operator*(const Complex& other) const {
+  return Complex((this->real * other.real)-(this->img * other.img), (this->real * other.img)+(this->img * other.real));
+}
+
+friend ostream& operator<<(ostream& os, Complex& c){
+os<<c.real;
+if(c.img>=0) os<<"+"<<c.img<<"i";
+else os<<"-"<<-c.img<<"i";
+return os;
+}
+
+friend istream& operator>>(istream& is, Complex& c){
+cout<<"Enter the real part: "<<endl;
+is>>c.real;
+cout<<"Enter the imaginary part: "<<endl;
+is>>c.img;
+return is;
+}
+};
+
+int main(){
+  Complex z,c1, c2;
+  cout<<"Displaying Default Constructor: "<<z<<endl;
+  
+  cout<<"Enter first Complex Number: "<<endl;
+  cin>>c1;
+  cout<<"Enter second Complex Number: "<<endl;
+  cin>>c2;
+  
+  Complex sum = c1 + c2;
+  cout<<"Sum is: "<<sum<<"\n";
+  
+  Complex product = c1 * c2;
+  cout<<"Product is: "<<product<<"\n";
+  return 0;
+}
